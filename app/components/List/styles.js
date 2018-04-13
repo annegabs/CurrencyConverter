@@ -36,4 +36,3 @@ export default EStyleSheet.create({
     width: 18,
   },
 });
-

@@ -36,4 +36,3 @@ ListItem.propTypes = {
  };
  
  export default ListItem;
-
