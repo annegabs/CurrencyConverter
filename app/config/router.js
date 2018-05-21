@@ -4,8 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import Home from '../screens/Home';
 import CurrencyList from '../screens/CurrencyList';
 
-export default StackNavigator(
-  {
+export default StackNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
@@ -24,4 +23,5 @@ export default StackNavigator(
       paddingTop: StatusBar.currentHeight,
     },
   },
-);
+});
+

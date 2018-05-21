@@ -37,3 +37,4 @@ class CurrencyList extends Component {
 }
 
 export default CurrencyList;
+
