@@ -1,7 +1,7 @@
 import React from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import Navigator from './config/routes';
+import Navigator from './config/router';
 import { AlertProvider } from './components/Alert';
 
 EStyleSheet.build({
