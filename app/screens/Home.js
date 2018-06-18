@@ -28,11 +28,11 @@ class Home extends Component {
   };
 
   handlePressBaseCurrency = () => {
-    this.props.navigation.navigate('CurrencyList', { title: 'Base currency' });
+    this.props.navigation.navigate('CurrencyList', { title: 'Base currency', type: 'base' });
   };
 
   handlePressQuoteCurrency = () => {
-    this.props.navigation.navigate('CurrencyList', { title: 'Quote currency' });
+    this.props.navigation.navigate('CurrencyList', { title: 'Quote currency', type: 'quote' });
   };
 
   handleSwapCurrency = () => {
@@ -44,7 +44,7 @@ class Home extends Component {
   };
 
   render() {
-    const quotePrice = (this.props.amount * this.props.conversionRate).toFixed(2);
+    const quote = this.props.amount * this.props.conversionRate;
 
     return (
       <Container>
@@ -63,7 +63,7 @@ class Home extends Component {
             editable={false}
             buttonText={this.props.quoteCurrency}
             onPress={this.handlePressQuoteCurrency}
-            value={quotePrice}
+            value={quote.toFixed(2).toString()}
           />
           <LastConverted
             date={this.props.lastConvertedDate}
@@ -71,7 +71,7 @@ class Home extends Component {
             quote={this.props.quoteCurrency}
             conversionRate={this.props.conversionRate}
           />
-          <ClearButton text="Reverse currencies" onPress={this.handleSwapCurrency} />
+          <ClearButton text="Swap Currency" onPress={this.handleSwapCurrency} />
         </KeyboardAvoidingView>
       </Container>
     );
@@ -79,9 +79,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const baseCurrency = state.currencies.baseCurrency;
-  const quoteCurrency = state.currencies.quoteCurrency;
-  const conversionSelector = state.currencies.conversions[baseCurrency] || {};
+  const { baseCurrency, quoteCurrency, conversions } = state.currencies;
+  const conversionSelector = conversions[baseCurrency] || {};
   const rates = conversionSelector.rates || {};
 
   return {
@@ -94,4 +93,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Home);
+
 
