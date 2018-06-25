@@ -21,6 +21,7 @@ class Home extends Component {
     amount: PropTypes.number,
     conversionRate: PropTypes.number,
     lastConvertedDate: PropTypes.object,
+    primaryColor: PropTypes.string,
   };
 
   handleChangeText = (text) => {
@@ -44,26 +45,28 @@ class Home extends Component {
   };
 
   render() {
-    const quote = this.props.amount * this.props.conversionRate;
+    const quotePrice = (this.props.amount * this.props.conversionRate).toFixed(2);
 
     return (
-      <Container>
+      <Container backgroundColor={this.props.primaryColor}>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
         <Header onPress={this.handleOptionsPress} />
         <KeyboardAvoidingView behavior="padding">
-          <Logo />
+          <Logo tintColor={this.props.primaryColor} />
           <InputWithButton
             buttonText={this.props.baseCurrency}
             onPress={this.handlePressBaseCurrency}
             defaultValue={this.props.amount.toString()}
             keyboardType="numeric"
             onChangeText={this.handleChangeText}
+            textColor={this.props.primaryColor}
           />
           <InputWithButton
             editable={false}
             buttonText={this.props.quoteCurrency}
             onPress={this.handlePressQuoteCurrency}
-            value={quote.toFixed(2).toString()}
+            value={quotePrice}
+            textColor={this.props.primaryColor}
           />
           <LastConverted
             date={this.props.lastConvertedDate}
@@ -71,7 +74,7 @@ class Home extends Component {
             quote={this.props.quoteCurrency}
             conversionRate={this.props.conversionRate}
           />
-          <ClearButton text="Swap Currency" onPress={this.handleSwapCurrency} />
+          <ClearButton text="Reverse currencies" onPress={this.handleSwapCurrency} />
         </KeyboardAvoidingView>
       </Container>
     );
@@ -79,8 +82,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { baseCurrency, quoteCurrency, conversions } = state.currencies;
-  const conversionSelector = conversions[baseCurrency] || {};
+  const { baseCurrency, quoteCurrency } = state.currencies;
+  const conversionSelector = state.currencies.conversions[baseCurrency] || {};
   const rates = conversionSelector.rates || {};
 
   return {
@@ -89,6 +92,7 @@ const mapStateToProps = (state) => {
     amount: state.currencies.amount,
     conversionRate: rates[quoteCurrency] || 0,
     lastConvertedDate: conversionSelector.date ? new Date(conversionSelector.date) : new Date(),
+    primaryColor: state.theme.primaryColor,
   };
 };
 
