@@ -85,4 +85,3 @@ console.log('changeBaseCurrency', reducer(initialState, changeBaseCurrency('BRL'
 console.log('changeBaseCurrency', reducer(initialState, changeQuoteCurrency('BRL')));
 
 export default reducer;
-
