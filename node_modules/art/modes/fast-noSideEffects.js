@@ -1,6 +1,6 @@
 var hasCanvas = function(){
 
-  var canvas = typeof window !== 'undefined' && window.document && window.document.createElement && document.createElement('canvas');
+  var canvas = document.createElement('canvas');
   return canvas && !!canvas.getContext;
 
 };

@@ -2,22 +2,19 @@
 
 import * as React from 'react';
 
-class SceneComponent extends React.PureComponent<*> {
-  render() {
-    const { component, ...rest } = this.props;
-    return React.createElement(component, rest);
+export default function SceneMap(scenes: { [key: string]: Function }) {
+  class SceneComponent extends React.PureComponent<*> {
+    render() {
+      return React.createElement(scenes[this.props.route.key], this.props);
+    }
   }
-}
 
-export default function SceneMap<T: *>(scenes: {
-  [key: string]: React.ComponentType<T>,
-}) {
-  return ({ route, jumpTo }: T) => (
+  return ({ route, jumpTo, jumpToIndex }: *) => (
     <SceneComponent
       key={route.key}
-      component={scenes[route.key]}
       route={route}
       jumpTo={jumpTo}
+      jumpToIndex={jumpToIndex}
     />
   );
 }

@@ -1,13 +1,15 @@
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
  */
 
 'use strict';
 
-var PluginError = require('plugin-error');
+var gutil = require('gulp-util');
 var through = require('through2');
 var PM_REGEXP = require('./shared/provides-module').regexp;
 
@@ -19,7 +21,7 @@ module.exports = function(opts) {
     }
 
     if (file.isStream()) {
-      cb(new PluginError('module-map', 'Streaming not supported'));
+      cb(new gutil.PluginError('module-map', 'Streaming not supported'));
       return;
     }
 
